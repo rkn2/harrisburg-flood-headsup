@@ -219,6 +219,7 @@ sup.cite { font: 500 .68rem var(--sans); color: var(--ae-navy) }
     <a href="#top" class="nav-brand">Harrisburg Flood <span>Heads-Up</span></a>
     <ul class="nav-links">
       <li class="opt"><a href="#about">Background</a></li>
+      <li class="opt"><a href="#new">What's new</a></li>
       <li><a href="#tool">Mockup</a></li>
       <li><a href="#data">Data</a></li>
       <li><a href="#team">Team</a></li>
@@ -254,11 +255,41 @@ sup.cite { font: 500 .68rem var(--sans); color: var(--ae-navy) }
       one pipe. In a big storm those pipes fill, and the mix spills into Paxton Creek and the river. Capital Region
       Water's model estimates that about 602 million gallons overflowed this way in 2025.
     </p>
-    <p class="lead">The mockup covers both kinds of flooding. Here is what you can try.</p>
+    </div>
+</section>
+
+<section id="new" class="section">
+  <div class="section-inner">
+    <p class="section-label">What's New</p>
+    <h2 class="sh">What does this add to the flood maps that already exist?</h2>
+    <p class="lead">
+      Harrisburg already has good forecasts. The National Weather Service forecasts the river crest, federal agencies
+      have mapped how far the water spreads at each level, and AI forecasts such as Google's Flood Hub keep improving.
+      We use all of these as they are and don't make a new forecast.
+    </p>
+    <p class="lead">
+      The hard part comes after the forecast. Someone at the city has to pull together the flood map, building records,
+      census data and past storms, work out who is in the way, and tell crews and residents what to do, all under time
+      pressure. That step is still done by hand, and it is the step we are building for.
+    </p>
+    <p class="lead">
+      The new piece is an AI assistant that works from the trusted data. It runs the map calculations itself, writes a
+      short briefing where every statement links to its source, says plainly when the data don't cover something, answers
+      staff questions in everyday language, and drafts alerts for residents in English and Spanish. After a flood it helps
+      inspectors turn photos and notes into FEMA damage forms, and the inspector confirms every value. The flood extents
+      and counts still come from the agencies' maps, so the assistant explains the numbers and does not make them up.
+    </p>
+    <p class="lead">
+      The public data also have gaps the assistant can help fill. Every one of the 111 homes the river reaches at 23 feet
+      is listed in the national building inventory with the same default first-floor height of 2 feet, because the inventory has no
+      measured value for them. Whether water comes in the front door depends on that height. We plan to estimate it from street-level
+      photos of Harrisburg's rowhouses and check the estimates against measurements on the ground.
+    </p>
+    <p class="lead">Here is what you can try in the mockup.</p>
     <div class="card-grid">
+      <div class="card"><h3>A briefing for city staff</h3><p>A short summary with its sources, written for Public Works and emergency management. Staff can ask it follow-up questions in the Ask tab. There is also a draft alert for residents in English and Spanish. Staff edit and approve everything before it goes out.</p></div>
       <div class="card"><h3>Which buildings the river reaches</h3><p>Choose a forecast crest, from minor flooding up to the 1972 Agnes level. The map marks each building the mapped flood reaches, and the counts underneath show how many are homes and roughly how many people sleep there.</p></div>
       <div class="card"><h3>Where the sewers overflow</h3><p>Choose a rain forecast and see the 2025 storm that came closest to it. Each sewer outfall is sized by how much Capital Region Water's model says spilled there.</p></div>
-      <div class="card"><h3>A briefing for city staff</h3><p>A short summary with its sources, written for Public Works and emergency management, and a draft alert for residents in English and Spanish. Staff edit and approve everything before it goes out.</p></div>
       <div class="card"><h3>After the water goes down</h3><p>A list of where to inspect first, and help filling out FEMA damage forms from photos and notes. The inspector checks every value.</p></div>
     </div>
   </div>
@@ -270,7 +301,7 @@ sup.cite { font: 500 .68rem var(--sans); color: var(--ae-navy) }
     <h2 class="sh">Try it yourself</h2>
 <div class="wrap">
   <div class="tool-head">
-    <p class="sub">Switch between river flooding and heavy rain with the buttons at the top of the mockup. The maps, counts and overflow records are real public data. The briefings and alerts are examples of what the tool would write.</p>
+    <p class="sub">The map and counts are the starting point, built from public data that already exists. The briefing panel beside the map is the part we are building. Its briefings, answers and alerts are examples of what the assistant would write. Switch between river flooding and heavy rain with the buttons at the top.</p>
     <div class="track" role="group" aria-label="Choose flood type">
       <button data-t="river" aria-pressed="true">River flood</button>
       <button data-t="rain" aria-pressed="false">Heavy rain, sewer overflows</button>
