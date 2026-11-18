@@ -333,9 +333,9 @@ sup.cite { font: 500 .68rem var(--sans); color: var(--ae-navy) }
     <p class="lead">
       We have run a first test of the assistant. In November 2026 we gave a current model read-only access to the building,
       flood-stage and sewer overflow tables behind the mockup and asked it 25 questions written the way staff would ask them,
-      with the answers worked out beforehand. Its main answer was right in 24. It declined all six questions the data can't
-      answer, such as which roads close first, and said what data it would need. Four answers had a wrong number in a
-      secondary detail, so checking every statement against its source stays part of the design. Two of the exchanges are
+      with the answers worked out beforehand. Its main answer matched ours in 23. It declined all six questions the data can't
+      answer, such as whether anyone lives in the basements, and said what data it would need. Seven answers had a wrong or
+      mislabeled number in a secondary detail, so checking every statement against its source stays part of the design. Two of the exchanges are
       in the Ask tab.
     </p>
     <p class="lead">Here is what you can try in the mockup.</p>
@@ -625,10 +625,13 @@ sup.cite { font: 500 .68rem var(--sans); color: var(--ae-navy) }
         <ul><li>CSO-058, Front &amp; Tuscarora: about 56 m from the nearest affected home, 253,000 gal in 2025 over 14 events${c("cso_outfalls")}</li>
         <li>CSO-020, Front &amp; Hanna: about 56 m, 55,000 gal over 18 events${c("cso_outfalls")}</li></ul>
         The two outfalls are almost the same distance from the nearest home, so their order is not meaningful. The next closest is Front &amp; Paxton (CSO-019, about 119 m). It lists 0 gal, but it was observed overflowing on 22 inspection days, so its 0 gal means "not modeled" rather than "no overflow"${c("cso_outfalls")}. I measured straight-line distance. The data don't show sewer connections or flow paths, so this isn't a drainage analysis.</div>
-        <div class="q">How many homes in Shipoke does the river reach at 23 ft?</div>
-        <div class="a">I can't give you a Shipoke number. The data have no neighborhood names or boundaries${c("buildings")}. They only have block group and tract codes, plus latitude and longitude, so I would be guessing at which buildings count as Shipoke. Across the whole city, the 23 ft flood map reaches 111 of 15,259 residential buildings${c("buildings")}. To get a Shipoke figure, I would need a list of the block groups that make up Shipoke, or a boundary for it.</div>
+        <div class="q">Is anyone living in the basements of the homes the river reaches at 23 ft?</div>
+        <div class="a">I can't tell you whether anyone is living in those basements. The data don't record basement occupancy${c("buildings")}.
+        <ul><li>111 residential buildings are reached. 110 are recorded as having basements and 1 has a crawlspace${c("buildings")}</li>
+        <li>About 160 people are estimated to be in those residential buildings at 2 a.m.${c("buildings")} That is NSI's night-time estimate for the whole building. It doesn't say which floor anyone sleeps on.</li></ul>
+        To answer your question, you would need data on basement occupancy. That could be a rental or housing-unit inspection list, a code-enforcement record of basement apartments, or a door-to-door survey. Any of these would need to be reported in aggregate, by block group or tract, not by household.</div>
       </div>
-      <p class="note">In the same test the assistant answered 24 of 25 staff questions correctly and declined all six the data couldn't answer. Four answers had a wrong secondary number, which is why every statement is checked against its source before staff rely on it.</p>`;
+      <p class="note">In the same test the assistant's main answer matched our answer key for 23 of 25 staff questions, and it declined all six the data couldn't answer. Seven answers had a wrong or mislabeled number in a secondary detail, which is why every statement is checked against its source before staff rely on it.</p>`;
   }
   function alertP() {
     const s = isSc() ? { stage_ft: SC[cur].stage_ft, residential: 1 } : S[cur];
