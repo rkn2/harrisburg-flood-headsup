@@ -4,4 +4,4 @@ Interactive concept mockup for a flood briefing tool for the City of Harrisburg,
 
 View it at https://rkn2.github.io/harrisburg-flood-headsup/
 
-Data sources are listed in the page footer. The page is built from a private working repo; this repo holds only the published page.
+Data sources are listed in the Data section of the page. The page is styled to match the AE Research Scholars site. The page is built from a private working repo; this repo holds only the published page.
