@@ -182,6 +182,13 @@ a { color: var(--ae-navy); text-decoration: none } a:hover { text-decoration: un
 .card p { font-size: .9rem; line-height: 1.55; margin: 0 }
 .btn { display: inline-block; padding: .65rem 1.4rem; font-size: .88rem; font-weight: 500; border-radius: 5px; background: var(--ae-navy); color: #fff }
 .btn:hover { background: var(--ae-navy-light); text-decoration: none }
+.sub-h { font: 500 1.08rem 'Roboto Slab', Georgia, serif; color: var(--ae-ink); margin: 1.8rem 0 .6rem }
+.cmp-wrap { overflow-x: auto; margin: .4rem 0 1.4rem; border: 1px solid var(--ae-border); border-radius: 6px }
+.cmp { width: 100%; border-collapse: collapse; font-size: .88rem; line-height: 1.5; min-width: 560px }
+.cmp th, .cmp td { text-align: left; vertical-align: top; padding: .7rem .8rem; border-bottom: 1px solid var(--ae-border) }
+.cmp thead th { background: var(--ae-sand) }
+.cmp tbody th { font: 500 .88rem/1.45 var(--sans); letter-spacing: 0; text-transform: none; color: var(--ae-ink); width: 30% }
+.cmp tbody tr:last-child th, .cmp tbody tr:last-child td { border-bottom: 0 }
 .src-list { font-size: .9rem; line-height: 1.6; padding-left: 1.2em; margin: 0 0 1rem; display: grid; gap: .5rem }
 .site-footer { text-align: center; padding: 2rem; font-size: .8rem; color: var(--ae-text2) }
 .site-footer p { margin: 0 0 .3rem } .site-footer a { color: var(--ae-steel) }
@@ -264,26 +271,53 @@ sup.cite { font: 500 .68rem var(--sans); color: var(--ae-navy) }
     <h2 class="sh">What does this add to the flood maps that already exist?</h2>
     <p class="lead">
       Harrisburg already has good forecasts. The National Weather Service forecasts the river crest, federal agencies
-      have mapped how far the water spreads at each level, and AI forecasts such as Google's Flood Hub keep improving.
-      We use all of these as they are and don't make a new forecast.
+      have mapped how far the water spreads at each level, and AI forecasts such as Google's Flood Hub and private weather
+      services keep improving. We use all of these as they are and don't make a new forecast.
     </p>
     <p class="lead">
       The hard part comes after the forecast. Someone at the city has to pull together the flood map, building records,
       census data and past storms, work out who is in the way, and tell crews and residents what to do, all under time
-      pressure. That step is still done by hand, and it is the step we are building for.
+      pressure. That step is still done by hand, and it is the step we are building for. The table below lists the tools
+      that already exist, what each one gives the city, and what is still left for staff to do on the day of a flood.
     </p>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <thead><tr><th scope="col">Existing tool</th><th scope="col">What it gives the city</th><th scope="col">What is still left for staff</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">NWS river forecast and the NWS/USGS flood maps</th><td>The expected crest at the Harrisburg gage, and the area the river covers at each stage.</td><td>Working out which buildings sit in that area, who lives there, who will need help leaving, and what to tell crews and residents.</td></tr>
+        <tr><th scope="row">AI forecasts (Google Flood Hub, private weather services)</th><td>Earlier and often better river forecasts.</td><td>The same work as the row above. A better forecast still has to be turned into a plan for specific blocks.</td></tr>
+        <tr><th scope="row">GIS overlays and dashboards (including FEMA's Hazus)</th><td>Maps and counts for questions someone set up ahead of time.</td><td>Any new question on flood day needs a person with GIS skills to build the query, read the result and write it up.</td></tr>
+        <tr><th scope="row">Capital Region Water's sewer model and annual overflow reports</th><td>Where and how much the combined sewers overflowed in past storms.</td><td>Judging which streets and basements are likely to flood in tonight's storm, which the river maps can't show.</td></tr>
+        <tr><th scope="row">Published methods that estimate first-floor height from street photos</th><td>A way to replace the default heights in the national building inventory.</td><td>Adapting and checking them for Harrisburg's pre-1940 rowhouses with basements, and connecting the results to flood-day decisions.</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <h3 class="sub-h">Isn't this a GIS problem?</h3>
     <p class="lead">
-      The new piece is an AI assistant that works from the trusted data. It runs the map calculations itself, writes a
-      short briefing where every statement links to its source, says plainly when the data don't cover something, answers
-      staff questions in everyday language, and drafts alerts for residents in English and Spanish. After a flood it helps
-      inspectors turn photos and notes into FEMA damage forms, and the inspector confirms every value. The flood extents
-      and counts still come from the agencies' maps, so the assistant explains the numbers and does not make them up.
+      Part of it is. Finding which buildings sit inside a mapped flood is a spatial join, and we do that with ordinary GIS
+      code so the counts are exact and repeatable. What GIS doesn't do is the rest of the work on flood day. Staff ask
+      questions nobody built a layer for in advance, such as how many people over 65 live on the blocks the river reaches
+      at 23 feet, or which sewer outfalls near those blocks overflowed most in 2025. The assistant writes and runs the GIS query for
+      each question, reads the result, and explains it with a source for every statement, so a staff member without GIS
+      training gets an answer in minutes. It says plainly when the data don't cover something. It then turns the same
+      results into a short briefing for crews and draft alerts for residents in English and Spanish, and after a flood it
+      helps inspectors turn photos and notes into FEMA damage forms, with the inspector confirming every value. The flood
+      extents and counts always come from the agencies' maps, so the assistant explains the numbers and does not make them up.
     </p>
     <p class="lead">
       The public data also have gaps the assistant can help fill. Every one of the 111 homes the river reaches at 23 feet
       is listed in the national building inventory with the same default first-floor height of 2 feet, because the inventory has no
-      measured value for them. Whether water comes in the front door depends on that height. We plan to estimate it from street-level
-      photos of Harrisburg's rowhouses and check the estimates against measurements on the ground.
+      measured value for them. Whether water comes in the front door depends on that height. Researchers, including at Penn State,
+      have published ways to estimate first-floor height from street-level photos. We plan to adapt them to Harrisburg's rowhouses
+      and check the estimates against measurements on the ground.
+    </p>
+    <h3 class="sub-h">How will we know it helps?</h3>
+    <p class="lead">
+      We will run the same flood scenario as a tabletop exercise with city staff twice, once with the current manual process
+      and once with the assistant. We will time how long each takes to reach an action plan (our target is under 30 minutes,
+      against the hours it takes now) and check which vulnerable households each plan reaches. We will also replay the 2004
+      and 2011 river floods and recent storms in Capital Region Water's records, compare the blocks the briefings flag with
+      where flooding happened, and check every statement in every briefing against its source.
     </p>
     <p class="lead">Here is what you can try in the mockup.</p>
     <div class="card-grid">
