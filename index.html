@@ -92,6 +92,8 @@ sup.cite { font: 500 .68rem var(--mono); color: var(--river) }
 .qa { display: grid; gap: 10px }
 .q { justify-self: end; background: var(--river-fill); padding: 8px 12px; border-radius: 10px 10px 2px 10px; max-width: 85% }
 .a { border: 1px solid var(--rule); padding: 10px 12px; border-radius: 10px 10px 10px 2px; max-width: 95% }
+.steps { font-size: .8rem; color: var(--muted); margin: 0 0 6px; padding-left: 18px }
+.a ul { margin: 6px 0; padding-left: 18px }
 .alert { border: 1px solid var(--rule); border-radius: 4px; padding: 12px 14px; display: grid; gap: 6px }
 .tbl { overflow-x: auto }
 table { border-collapse: collapse; width: 100%; font-size: .85rem }
@@ -327,6 +329,14 @@ sup.cite { font: 500 .68rem var(--sans); color: var(--ae-navy) }
       against the hours it takes now) and check which vulnerable households each plan reaches. We will also replay the 2004
       and 2011 river floods and recent storms in Capital Region Water's records, compare the blocks the briefings flag with
       where flooding happened, and check every statement in every briefing against its source.
+    </p>
+    <p class="lead">
+      We have run a first test of the assistant. In November 2026 we gave a current model read-only access to the building,
+      flood-stage and sewer overflow tables behind the mockup and asked it 25 questions written the way staff would ask them,
+      with the answers worked out beforehand. Its main answer was right in 24. It declined all six questions the data can't
+      answer, such as which roads close first, and said what data it would need. Four answers had a wrong number in a
+      secondary detail, so checking every statement against its source stays part of the design. Two of the exchanges are
+      in the Ask tab.
     </p>
     <p class="lead">Here is what you can try in the mockup.</p>
     <div class="card-grid">
@@ -605,17 +615,20 @@ sup.cite { font: 500 .68rem var(--sans); color: var(--ae-navy) }
       ${sources()}`;
   }
   function ask() {
-    const s = isSc() ? { basements: rng("basements"), structures: rng("structures"), stage_ft: SC[cur].stage_ft } : S[cur], m = S.major;
+    const c = t => `<sup class="cite">[${t}]</sup>`;
     document.getElementById("p-ask").innerHTML = `
+      <p class="note" style="margin-top:0">Logged test exchange, November 18, 2026, for a 23 ft forecast. Claude Sonnet 5.5 with read-only query access to the building, flood-stage and CRW overflow tables behind this page. Answers shortened from the log, and the steps summarized.</p>
       <div class="qa">
-        <div class="q">Which of these have basements, and how sure are we about the first floors?</div>
-        <div class="a">${typeof s.basements === "number" ? fmt(s.basements) : s.basements} of the ${typeof s.structures === "number" ? fmt(s.structures) : s.structures} buildings reached at ${s.stage_ft} ft have basements in the inventory.<sup class="cite">[2]</sup>
-        The first-floor heights are not reliable: every one of the ${fmt(m.residential)} homes reached at 23 ft carries the inventory's default value of 2.0 ft, and the commercial buildings carry 0.25 or 0.5 ft.<sup class="cite">[2]</sup>
-        The inventory also doesn't say which basements have someone living in them. So I can say which buildings the water reaches, but not yet whose living floor floods. The street-imagery height model in this project is meant to close that gap.</div>
-        <div class="q">Which roads into Shipoke flood first?</div>
-        <div class="a">[Needs city street and facility data, to be added under the data-sharing agreement.] I won't guess at roads the source maps don't cover.</div>
+        <div class="q">Which two sewer overflow outfalls are closest to the homes the river reaches at 23 ft, and how much did each overflow in 2025?</div>
+        <div class="a"><ol class="steps"><li>Read the table list and data notes</li><li>Pulled the 111 homes reached at 23 ft and all 60 outfalls</li><li>Computed the distance from each outfall to the nearest home</li><li>Looked up each outfall's 2025 overflow record</li></ol>
+        The two closest outfalls to the homes reached at 23 ft are Front &amp; Tuscarora (CSO-058) and Front &amp; Hanna (CSO-020). Both are small overflowers compared with the rest of the system.
+        <ul><li>CSO-058, Front &amp; Tuscarora: about 56 m from the nearest affected home, 253,000 gal in 2025 over 14 events${c("cso_outfalls")}</li>
+        <li>CSO-020, Front &amp; Hanna: about 56 m, 55,000 gal over 18 events${c("cso_outfalls")}</li></ul>
+        The two outfalls are almost the same distance from the nearest home, so their order is not meaningful. The next closest is Front &amp; Paxton (CSO-019, about 119 m). It lists 0 gal, but it was observed overflowing on 22 inspection days, so its 0 gal means "not modeled" rather than "no overflow"${c("cso_outfalls")}. I measured straight-line distance. The data don't show sewer connections or flow paths, so this isn't a drainage analysis.</div>
+        <div class="q">How many homes in Shipoke does the river reach at 23 ft?</div>
+        <div class="a">I can't give you a Shipoke number. The data have no neighborhood names or boundaries${c("buildings")}. They only have block group and tract codes, plus latitude and longitude, so I would be guessing at which buildings count as Shipoke. Across the whole city, the 23 ft flood map reaches 111 of 15,259 residential buildings${c("buildings")}. To get a Shipoke figure, I would need a list of the block groups that make up Shipoke, or a boundary for it.</div>
       </div>
-      <p class="note">Sample exchange. Answers come only from the cited data; when the data don't cover a question, the assistant says so.</p>`;
+      <p class="note">In the same test the assistant answered 24 of 25 staff questions correctly and declined all six the data couldn't answer. Four answers had a wrong secondary number, which is why every statement is checked against its source before staff rely on it.</p>`;
   }
   function alertP() {
     const s = isSc() ? { stage_ft: SC[cur].stage_ft, residential: 1 } : S[cur];
